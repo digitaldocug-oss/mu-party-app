@@ -105,21 +105,39 @@ export const ALL_MEMBERS: string[] = [
   "Justine Turyahabwe", "Lonnet Arindwamuka", "Irene Nagasha Akandinda", "Sarah K Kyobika",
 ];
 
-export const GUEST_CELLS: string[] = [
-  "Deborah Cell A",
-  "Deborah Cell B",
-  "Ziporah Cell A",
-  "Ziporah Cell B",
-  "Ziporah Cell C",
-  "Miriam Cell",
-  "Hannah Cell",
-  "Sarah Cell",
-  "Abigail Cell",
-  "Esther Cell A",
-  "Esther Cell B",
+export type CellInfo = {
+  name: string;
+  leader: string;
+  phone: string;
+  areas: string;
+};
+
+export const CELLS: CellInfo[] = [
+  { name: "Deborah A", leader: "Jackline Kanyesigye Kyasiimire", phone: "0753710927", areas: "Namungoona, Nansana Areas, and Wakiso, Masanafu, Ssenge, Naluvule and Beyond" },
+  { name: "Deborah B", leader: "Patience Kabahinda Namanya", phone: "0779105135", areas: "Nansana, Yesu Amala, Kabulenga, Wakiso, Senge, Naluvule, Baaka, Kavumba, Bukadda, & Beyond Hoima Rd" },
+  { name: "Abigail Cell", leader: "Praise Muhumuza", phone: "0774194853", areas: "Makerere, Kasubi, Kubiri, Wandegeya, Nakulabye, Lugala" },
+  { name: "Esther A", leader: "Edith Tumwiine", phone: "0781417086", areas: "Buwatte, Najjera, Buwate, Kira, Bulindo, Nsasa, and the neighboring areas" },
+  { name: "Esther B", leader: "Grace Bamwagale", phone: "0702503209", areas: "Nalya, Kyaliwajala, Namugongo, Mbalwa, Nsode, Bukelele, Jogo Misindye and surrounding areas" },
+  { name: "Sarah Cell", leader: "Agatha Buchana", phone: "0782691323", areas: "Entebbe Rd, Zanna, Sseguku, Namasuba, Makindye, and all areas on Entebbe road including airport" },
+  { name: "Rebecca Cell", leader: "Gladys Rukundo", phone: "0772850594", areas: "Ntinda Bukoto, Naalya, Kulambiro, Kisasi and Kyanja" },
+  { name: "Miriam Cell", leader: "Faithful Mugisha", phone: "0782880188", areas: "Kireeka, Banda, Bweyogerere, Mukono, Seeta" },
+  { name: "Zipporah A", leader: "Sarah Kwesiga", phone: "0700200611", areas: "Kyebando, Kanyanya, Mpererwe, Kumbuzi, Kitetika, Komamboga, Luteete, Masoli, Magere, Wampewo, Kasangati and the neighboring areas" },
+  { name: "Zipporah B", leader: "Hope Murungi", phone: "0772674690", areas: "Lusanja, Kiteezi, Kabaga, Kitagobwa, Jokolera, Kiti, Katadde and Buwambo" },
+  { name: "Zipporah C", leader: "Eunice Nuwarimpa", phone: "0783041990", areas: "Gayaza, Kabanyolo, Busukuma, Namulonge, Manyagwa, Nakwero, Namayina, Ndazabazadde, Kabubu, and Beyond" },
+  { name: "Hannah Cell", leader: "Ritah Mutesasira", phone: "0772829228", areas: "Kawempe, Ttura, Maganjo, Kagoma, and surrounding areas" },
+  { name: "Leah Cell", leader: "Florence Muhwezi", phone: "0772925266", areas: "Luzira, Bugolobi, Mutungo, Kitintale, Nakawa, Kiswa" },
 ];
 
-export const CELL_OPTIONS = ["Rebecca Cell", ...GUEST_CELLS, "Guest"] as const;
+export const CELL_OPTIONS = [
+  "Rebecca Cell",
+  ...CELLS.filter((c) => c.name !== "Rebecca Cell").map((c) => c.name),
+  "Guest",
+] as const;
+
+export function telHref(phone: string): string {
+  const digits = phone.replace(/\s/g, "");
+  return "tel:" + (digits.startsWith("0") ? "+256" + digits.slice(1) : digits);
+}
 
 export type TeamMember = {
   name: string;

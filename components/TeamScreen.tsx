@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { GUEST_CELLS, getTeam } from "@/lib/config";
+import { CELLS, getTeam, telHref } from "@/lib/config";
 import DevFooter from "./DevFooter";
 import type { TeamView, Tab } from "@/lib/types";
 
@@ -15,7 +15,6 @@ export default function TeamScreen({
   onNavigate: (t: Tab) => void;
 }) {
   const team = getTeam();
-  const guestCells = GUEST_CELLS.map((n) => ({ name: n, initial: n[0] }));
   const isHosts = view === "hosts";
 
   return (
@@ -28,10 +27,10 @@ export default function TeamScreen({
           ← Home
         </button>
         <h2 className="font-serif-brand" style={{ margin: "8px 0 0", fontSize: 30, fontWeight: 700, color: "#101736" }}>
-          {isHosts ? "Rebecca Cell Girls" : "Guest Cells"}
+          {isHosts ? "Rebecca Cell Girls" : "Cells"}
         </h2>
         <div style={{ marginTop: 4, fontSize: 14, color: "#6B7290" }}>
-          {isHosts ? `${team.length} hosts · Rebecca Cell, St Francis Chapel` : `${guestCells.length} guest cells joining us`}
+          {isHosts ? `${team.length} hosts · Rebecca Cell, St Francis Chapel` : `${CELLS.length} cells · leaders and coverage`}
         </div>
         <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8, background: "#F1F3F9", borderRadius: 14, padding: 4 }}>
           <button
@@ -64,7 +63,7 @@ export default function TeamScreen({
               boxShadow: !isHosts ? "0 2px 6px rgba(16,23,54,.10)" : "none",
             }}
           >
-            Guest Cells
+            Cells
           </button>
         </div>
       </div>
@@ -95,18 +94,77 @@ export default function TeamScreen({
         </div>
       ) : (
         <div style={{ padding: 18 }}>
-          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.8, color: "#B5169E" }}>INVITED CELLS</div>
+          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.8, color: "#B5169E" }}>
+            CELL LEADERS &amp; COVERAGE
+          </div>
           <p style={{ margin: "8px 0 0", fontSize: 14, lineHeight: 1.55, color: "#4C536E" }}>
-            Mother&apos;s Union cells joining us at the End of Year Party.
+            Mother&apos;s Union cell groups, their leaders and the areas they cover. Tap a number to call.
           </p>
-          <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 8 }}>
-            {guestCells.map((g, i) => (
-              <div key={i} style={{ background: "#FFFFFF", border: "1px solid #E7E9F2", borderRadius: 16, padding: "14px 16px", display: "flex", alignItems: "center", gap: 14 }}>
-                <span style={{ flex: "none", width: 38, height: 38, borderRadius: 12, background: "#EEF2FE", color: "#0B4BC4", display: "grid", placeItems: "center", fontSize: 14, fontWeight: 800 }}>
-                  {g.initial}
-                </span>
-                <span style={{ flex: 1, minWidth: 0, fontSize: 16, fontWeight: 700, color: "#101736" }}>{g.name}</span>
-                <span style={{ flex: "none", fontSize: 11, fontWeight: 800, letterSpacing: 0.6, color: "#8A90A6" }}>CELL</span>
+          <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+            {CELLS.map((c, i) => (
+              <div key={i} style={{ background: "#FFFFFF", border: "1px solid #E7E9F2", borderRadius: 18, padding: 16 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <span
+                    style={{
+                      flex: "none",
+                      width: 38,
+                      height: 38,
+                      borderRadius: 12,
+                      background: "#EEF2FE",
+                      color: "#0B4BC4",
+                      display: "grid",
+                      placeItems: "center",
+                      fontSize: 14,
+                      fontWeight: 800,
+                    }}
+                  >
+                    {c.name[0]}
+                  </span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                      <span style={{ fontSize: 16, fontWeight: 800, color: "#101736" }}>{c.name}</span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 800,
+                          letterSpacing: 0.4,
+                          color: "#B5169E",
+                          background: "#F8E9F6",
+                          padding: "3px 9px",
+                          borderRadius: 999,
+                        }}
+                      >
+                        CELL LEADER
+                      </span>
+                    </div>
+                    <div style={{ marginTop: 4, fontSize: 13.5, fontWeight: 600, color: "#4C536E" }}>{c.leader}</div>
+                  </div>
+                  <a
+                    href={telHref(c.phone)}
+                    style={{
+                      flex: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      height: 36,
+                      padding: "0 12px",
+                      borderRadius: 999,
+                      border: "1px solid #DCE1F0",
+                      background: "#FBFCFF",
+                      fontSize: 13,
+                      fontWeight: 800,
+                      color: "#101736",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <span style={{ color: "#B5169E" }}>📞</span>
+                    {c.phone}
+                  </a>
+                </div>
+                <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid #EFF1F7", display: "flex", gap: 8 }}>
+                  <span style={{ flex: "none", fontSize: 13 }}>📍</span>
+                  <span style={{ fontSize: 13, lineHeight: 1.5, color: "#6B7290" }}>{c.areas}</span>
+                </div>
               </div>
             ))}
           </div>
