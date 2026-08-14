@@ -68,7 +68,6 @@ export default function AgendaScreen() {
       </div>
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

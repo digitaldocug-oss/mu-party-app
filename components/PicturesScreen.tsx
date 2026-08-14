@@ -61,7 +61,6 @@ export default function PicturesScreen() {
       </div>
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

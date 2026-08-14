@@ -314,7 +314,6 @@ export default function RegisterScreen({
       </div>
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

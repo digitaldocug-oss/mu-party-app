@@ -246,7 +246,6 @@ export default function HomeScreen({
       </div>
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

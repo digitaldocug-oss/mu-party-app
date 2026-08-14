@@ -114,7 +114,6 @@ export default function TeamScreen({
       )}
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

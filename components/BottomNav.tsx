@@ -17,9 +17,10 @@ export default function BottomNav({
   return (
     <div
       style={{
+        flex: "none",
         background: "rgba(255,255,255,.96)",
         borderTop: "1px solid #E7E9F2",
-        padding: "8px 8px 22px",
+        padding: "8px 8px calc(8px + env(safe-area-inset-bottom))",
         display: "grid",
         gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
         gap: 2,

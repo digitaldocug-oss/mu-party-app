@@ -98,7 +98,7 @@ export default function FeedbackScreen({
                 value={enjoy}
                 onChange={(e) => setEnjoy(e.target.value)}
                 rows={3}
-                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 15, background: "#FBFCFF", resize: "none" }}
+                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 16, background: "#FBFCFF", resize: "none" }}
               />
             </label>
             <label style={{ display: "block" }}>
@@ -109,7 +109,7 @@ export default function FeedbackScreen({
                 value={improve}
                 onChange={(e) => setImprove(e.target.value)}
                 rows={3}
-                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 15, background: "#FBFCFF", resize: "none" }}
+                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 16, background: "#FBFCFF", resize: "none" }}
               />
             </label>
             <label style={{ display: "block" }}>
@@ -120,7 +120,7 @@ export default function FeedbackScreen({
                 value={next}
                 onChange={(e) => setNext(e.target.value)}
                 rows={3}
-                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 15, background: "#FBFCFF", resize: "none" }}
+                style={{ width: "100%", border: "1px solid #DCE1F0", borderRadius: 14, padding: 12, fontSize: 16, background: "#FBFCFF", resize: "none" }}
               />
             </label>
             <div>
@@ -166,7 +166,6 @@ export default function FeedbackScreen({
       )}
 
       <DevFooter />
-      <div style={{ height: 100 }} />
     </div>
   );
 }

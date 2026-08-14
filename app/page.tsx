@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EVENT } from "@/lib/config";
+import { useViewportHeight } from "@/lib/useViewportHeight";
 import type { Tab, PayStage, RegistrationForm, TeamView } from "@/lib/types";
 import BottomNav from "@/components/BottomNav";
 import HomeScreen from "@/components/HomeScreen";
@@ -29,11 +30,17 @@ export default function Home() {
   const [teamView, setTeamView] = useState<TeamView>("hosts");
   const [payStage, setPayStage] = useState<PayStage>("idle");
   const [form, setForm] = useState<RegistrationForm>(EMPTY_FORM);
+  const viewportHeight = useViewportHeight();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 30000);
     return () => clearInterval(t);
   }, []);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [tab]);
 
   const feedbackLive = now >= new Date(EVENT.feedbackOpensAtISO).getTime();
   const feedbackOpen = EVENT.feedbackOpenOverride || feedbackLive;
@@ -51,17 +58,8 @@ export default function Home() {
     : "Opens 11:00am on Sunday 22 November";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F6FA" }}>
-      <div
-        style={{
-          maxWidth: 480,
-          margin: "0 auto",
-          minHeight: "100vh",
-          background: "#F5F6FA",
-          position: "relative",
-          paddingBottom: 90,
-        }}
-      >
+    <div className="app-shell" style={viewportHeight ? { height: viewportHeight } : undefined}>
+      <div className="app-scroll" ref={scrollRef}>
         {tab === "home" && (
           <HomeScreen countdown={countdown} feedbackHomeHint={feedbackHomeHint} onNavigate={setTab} />
         )}
@@ -80,11 +78,7 @@ export default function Home() {
         {tab === "feedback" && <FeedbackScreen feedbackOpen={feedbackOpen} onNavigate={setTab} />}
       </div>
 
-      <div style={{ position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 30 }}>
-        <div style={{ maxWidth: 480, margin: "0 auto", position: "relative" }}>
-          <BottomNav tab={tab} feedbackOpen={feedbackOpen} onNavigate={setTab} />
-        </div>
-      </div>
+      <BottomNav tab={tab} feedbackOpen={feedbackOpen} onNavigate={setTab} />
     </div>
   );
 }
