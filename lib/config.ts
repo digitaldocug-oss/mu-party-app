@@ -106,8 +106,20 @@ export const ALL_MEMBERS: string[] = [
 ];
 
 export const GUEST_CELLS: string[] = [
-  "Zipporah", "Hannah", "Ruth", "Esther", "Sarah", "Rachel", "Leah", "Naomi", "Deborah", "Abigail", "Elizabeth",
+  "Deborah Cell A",
+  "Deborah Cell B",
+  "Ziporah Cell A",
+  "Ziporah Cell B",
+  "Ziporah Cell C",
+  "Miriam Cell",
+  "Hannah Cell",
+  "Sarah Cell",
+  "Abigail Cell",
+  "Esther Cell A",
+  "Esther Cell B",
 ];
+
+export const CELL_OPTIONS = ["Rebecca Cell", ...GUEST_CELLS, "Guest"] as const;
 
 export type TeamMember = {
   name: string;

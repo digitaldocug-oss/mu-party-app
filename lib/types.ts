@@ -1,8 +1,10 @@
+import type { CELL_OPTIONS } from "./config";
+
 export type Tab = "home" | "agenda" | "pay" | "pics" | "team" | "feedback";
 
 export type PayStage = "idle" | "proof" | "pledgeForm" | "donePaid" | "donePledge";
 
-export type Cell = "Rebecca Cell" | "Other Cell" | "Guest";
+export type Cell = (typeof CELL_OPTIONS)[number];
 
 export type RegistrationForm = {
   name: string;

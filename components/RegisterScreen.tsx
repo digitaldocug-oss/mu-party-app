@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EVENT, ugx, prettyDate } from "@/lib/config";
+import { EVENT, ugx, prettyDate, CELL_OPTIONS } from "@/lib/config";
 import DevFooter from "./DevFooter";
 import type { PayStage, RegistrationForm, Cell } from "@/lib/types";
 
@@ -121,9 +121,11 @@ export default function RegisterScreen({
                     onChange={(e) => setForm({ ...form, cell: e.target.value as Cell })}
                     style={{ ...inputStyle, padding: "0 12px" }}
                   >
-                    <option value="Rebecca Cell">Rebecca Cell</option>
-                    <option value="Other Cell">Other Cell</option>
-                    <option value="Guest">Guest</option>
+                    {CELL_OPTIONS.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
                   </select>
                 </label>
                 <div>
