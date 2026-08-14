@@ -43,6 +43,3 @@ next-env.d.ts
 
 # logs
 *.log
-
-.vercel
-.env*

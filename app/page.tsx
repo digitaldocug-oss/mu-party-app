@@ -27,7 +27,12 @@ const EMPTY_FORM: RegistrationForm = {
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>("home");
-  const [now, setNow] = useState(() => Date.now());
+  // Starts null (not Date.now()) so the server-rendered/statically-prerendered
+  // HTML and the client's first hydration pass produce identical markup —
+  // seeding this with Date.now() directly caused a real hydration mismatch
+  // on every page load, since the prerendered timestamp is always earlier
+  // than whenever a visitor's browser actually hydrates it.
+  const [now, setNow] = useState<number | null>(null);
   const [teamView, setTeamView] = useState<TeamView>("hosts");
   const [payStage, setPayStage] = useState<PayStage>("idle");
   const [form, setForm] = useState<RegistrationForm>(EMPTY_FORM);
@@ -36,6 +41,7 @@ export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setNow(Date.now());
     const t = setInterval(() => setNow(Date.now()), 30000);
     return () => clearInterval(t);
   }, []);
@@ -44,11 +50,11 @@ export default function Home() {
     scrollRef.current?.scrollTo({ top: 0 });
   }, [tab]);
 
-  const feedbackLive = now >= new Date(EVENT.feedbackOpensAtISO).getTime();
+  const feedbackLive = now !== null && now >= new Date(EVENT.feedbackOpensAtISO).getTime();
   const feedbackOpen = EVENT.feedbackOpenOverride || feedbackLive;
 
   const target = new Date(EVENT.dateISO).getTime();
-  const diff = Math.max(0, target - now);
+  const diff = Math.max(0, target - (now ?? target));
   const countdown = {
     days: String(Math.floor(diff / 86400000)),
     hours: String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0"),

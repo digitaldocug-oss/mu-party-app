@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EVENT, ugx, prettyDate, CELL_OPTIONS } from "@/lib/config";
+import { submitToSheet } from "@/lib/submitToSheet";
 import DevFooter from "./DevFooter";
 import type { PayStage, RegistrationForm, Cell } from "@/lib/types";
 
@@ -209,7 +210,10 @@ export default function RegisterScreen({
               </label>
             </div>
             <button
-              onClick={() => setStage("donePaid")}
+              onClick={() => {
+                submitToSheet(form, amount, "paid");
+                setStage("donePaid");
+              }}
               style={{ marginTop: 16, width: "100%", height: 58, borderRadius: 16, border: 0, background: "#0B4BC4", color: "#FFFFFF", fontSize: 17, fontWeight: 800, cursor: "pointer" }}
             >
               Submit registration
@@ -252,7 +256,10 @@ export default function RegisterScreen({
               ))}
             </div>
             <button
-              onClick={() => setStage("donePledge")}
+              onClick={() => {
+                submitToSheet(form, amount, "pledged");
+                setStage("donePledge");
+              }}
               style={{ marginTop: 16, width: "100%", height: 58, borderRadius: 16, border: 0, background: "#C9962B", color: "#FFFFFF", fontSize: 17, fontWeight: 800, cursor: "pointer" }}
             >
               Submit registration
