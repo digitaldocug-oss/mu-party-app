@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { EVENT } from "@/lib/config";
-import { useViewportHeight } from "@/lib/useViewportHeight";
+import { useVisualViewport } from "@/lib/useVisualViewport";
+import { useKeyboardOpen } from "@/lib/useKeyboardOpen";
 import type { Tab, PayStage, RegistrationForm, TeamView } from "@/lib/types";
 import BottomNav from "@/components/BottomNav";
 import HomeScreen from "@/components/HomeScreen";
@@ -30,7 +31,8 @@ export default function Home() {
   const [teamView, setTeamView] = useState<TeamView>("hosts");
   const [payStage, setPayStage] = useState<PayStage>("idle");
   const [form, setForm] = useState<RegistrationForm>(EMPTY_FORM);
-  const viewportHeight = useViewportHeight();
+  const viewport = useVisualViewport();
+  const keyboardOpen = useKeyboardOpen();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,8 +59,12 @@ export default function Home() {
     ? "Open now — tell us how the day is going"
     : "Opens 11:00am on Sunday 22 November";
 
+  const shellStyle = viewport
+    ? { top: viewport.offsetTop, height: viewport.height }
+    : undefined;
+
   return (
-    <div className="app-shell" style={viewportHeight ? { height: viewportHeight } : undefined}>
+    <div className="app-shell" style={shellStyle}>
       <div className="app-scroll" ref={scrollRef}>
         {tab === "home" && (
           <HomeScreen countdown={countdown} feedbackHomeHint={feedbackHomeHint} onNavigate={setTab} />
@@ -78,7 +84,17 @@ export default function Home() {
         {tab === "feedback" && <FeedbackScreen feedbackOpen={feedbackOpen} onNavigate={setTab} />}
       </div>
 
-      <BottomNav tab={tab} feedbackOpen={feedbackOpen} onNavigate={setTab} />
+      <div
+        style={{
+          flex: "none",
+          maxHeight: keyboardOpen ? 0 : 120,
+          opacity: keyboardOpen ? 0 : 1,
+          overflow: "hidden",
+          transition: "max-height 180ms ease, opacity 150ms ease",
+        }}
+      >
+        <BottomNav tab={tab} feedbackOpen={feedbackOpen} onNavigate={setTab} />
+      </div>
     </div>
   );
 }
