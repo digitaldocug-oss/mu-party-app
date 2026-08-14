@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #f5f6fa;
+  color: #101736;
+}
+
+a {
+  color: #0b4bc4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b5169e;
+}
+
+.font-serif-brand {
+  font-family: var(--font-source-serif), Georgia, serif;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.25s ease both;
+}
