@@ -14,7 +14,7 @@ export const EVENT = {
   feedbackOpensAtISO: "2026-11-22T11:00:00+03:00",
   momoNumber: "0782 240 710",
   momoName: "Leah Tuhame",
-  driveUrl: "https://drive.google.com/",
+  driveUrl: "https://drive.google.com/drive/folders/1zreZBr2b64zje_F1mdK_PiQshlaKlaaw",
 };
 
 export const CONTACT = {
