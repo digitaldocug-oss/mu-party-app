@@ -9,29 +9,27 @@ export default function DevFooter() {
           border: "1px solid #E7E9F2",
           borderRadius: 20,
           padding: 18,
+          textAlign: "center",
         }}
       >
-        <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: 1.8, color: "#8A90A6" }}>
-          DEVELOPED BY
+        <div style={{ fontSize: 13, color: "#8A90A6" }}>
+          Site developed by{" "}
+          <a
+            href="https://digitaldoc.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontWeight: 800, color: "#0B4BC4" }}
+          >
+            digitaldoc.online ↗
+          </a>
         </div>
-        <a
-          href="https://digitaldoc.online"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-block",
-            marginTop: 5,
-            fontSize: 20,
-            fontWeight: 800,
-            color: "#0B4BC4",
-            letterSpacing: -0.2,
-          }}
-        >
-          digitaldoc.online
-        </a>
-        <p style={{ margin: "6px 0 0", fontSize: 12.5, lineHeight: 1.5, color: "#6B7290" }}>
-          Systems, websites, digital tools — built for everyone across Uganda.
-        </p>
+
+        <div style={{ height: 1, background: "#E7E9F2", margin: "14px 0" }} />
+
+        <div style={{ fontSize: 12.5, fontWeight: 700, color: "#8A90A6" }}>
+          Need a website, app or system? ↓
+        </div>
+
         <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
           <a
             href={CONTACT.whatsapp}
@@ -61,7 +59,7 @@ export default function DevFooter() {
               borderRadius: 999,
               border: "1px solid #DCE1F0",
               background: "#FBFCFF",
-              color: "#101736",
+              color: "#0B4BC4",
               fontSize: 14,
               fontWeight: 800,
               display: "flex",
@@ -70,12 +68,9 @@ export default function DevFooter() {
               gap: 8,
             }}
           >
-            <span style={{ color: "#C9962B" }}>📞</span>
-            <span>Call</span>
+            <span style={{ color: "#B5169E" }}>📞</span>
+            <span>Call {CONTACT.phoneLabel.replace("+256 ", "0")}</span>
           </a>
-        </div>
-        <div style={{ marginTop: 12, textAlign: "center", fontSize: 12.5, fontWeight: 700, color: "#6B7290" }}>
-          {CONTACT.phoneLabel}
         </div>
       </div>
     </div>
